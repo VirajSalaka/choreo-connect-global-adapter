@@ -149,7 +149,6 @@
     </build>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
         <grpc.healthProbe.version>0.3.6</grpc.healthProbe.version>
         <exec.plugin.version>3.0.0</exec.plugin.version>
         <io.fabric8.docker.plugin.version>0.35.0</io.fabric8.docker.plugin.version>
