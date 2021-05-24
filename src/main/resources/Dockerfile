@@ -16,7 +16,6 @@
 
 FROM alpine:3.13.5
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>"
-RUN apk update && apk upgrade --no-cache
 
 ENV LANG=C.UTF-8
 
@@ -35,7 +34,8 @@ ARG MOTD="\n\
  Read more about Apache License, Version 2.0 here @ http://www.apache.org/licenses/LICENSE-2.0.\n"
 
 RUN \
-    addgroup -S -g ${MG_USER_GROUP_ID} ${MG_USER_GROUP} \
+    apk update && apk upgrade --no-cache \
+    && addgroup -S -g ${MG_USER_GROUP_ID} ${MG_USER_GROUP} \
     && adduser -S -u ${MG_USER_ID} -h ${MG_USER_HOME} -G ${MG_USER_GROUP} ${MG_USER} \
     && mkdir ${MG_USER_HOME}/logs && chown -R ${MG_USER}:${MG_USER_GROUP} ${MG_USER_HOME}/logs  \
     && echo '[ ! -z "${TERM}" -a -r /etc/motd ] && cat /etc/motd' >> /etc/bash.bashrc; echo "${MOTD}" > /etc/motd
