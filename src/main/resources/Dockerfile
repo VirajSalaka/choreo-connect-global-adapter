@@ -48,5 +48,4 @@ USER ${MG_USER}
 
 COPY maven/global-adapter-linux global-adapter
 
-# CMD ./global-adapter
-CMD tail -f /dev/null
+CMD ./global-adapter
