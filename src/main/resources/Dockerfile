@@ -33,6 +33,9 @@ ARG MOTD="\n\
  which is under the Apache License, Version 2.0. \n\
  Read more about Apache License, Version 2.0 here @ http://www.apache.org/licenses/LICENSE-2.0.\n"
 
+COPY maven/grpc_health_probe-linux-amd64 ${GRPC_HEALTH_PROBE_PATH}
+RUN chmod +x ${GRPC_HEALTH_PROBE_PATH}  
+
 RUN \
     apk update && apk upgrade --no-cache \
     && addgroup -S -g ${MG_USER_GROUP_ID} ${MG_USER_GROUP} \
@@ -40,13 +43,12 @@ RUN \
     && mkdir ${MG_USER_HOME}/logs && chown -R ${MG_USER}:${MG_USER_GROUP} ${MG_USER_HOME}/logs  \
     && echo '[ ! -z "${TERM}" -a -r /etc/motd ] && cat /etc/motd' >> /etc/bash.bashrc; echo "${MOTD}" > /etc/motd
 
-COPY maven/grpc_health_probe-linux-amd64 ${GRPC_HEALTH_PROBE_PATH}
-RUN chmod +x ${GRPC_HEALTH_PROBE_PATH}
-
 WORKDIR ${MG_USER_HOME}
 USER ${MG_USER}
 
+COPY maven/conf conf
 COPY maven/global-adapter-linux global-adapter
 
-# CMD ./global-adapter
-CMD tail -f /dev/null
+ENV LOG_CONFIG_PATH="${MG_USER_HOME}/conf/log_config.toml"
+
+CMD ./global-adapter
