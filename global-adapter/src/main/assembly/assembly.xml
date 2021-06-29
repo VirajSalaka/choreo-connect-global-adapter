@@ -30,4 +30,10 @@
             <outputDirectory></outputDirectory>
         </file>
     </files>
+    <fileSets>
+        <fileSet>
+            <directory>resources/conf</directory>
+            <outputDirectory>conf</outputDirectory>
+        </fileSet>
+    </fileSets>
 </assembly>

@@ -15,23 +15,13 @@
  *
  */
 
-// Package main is the main packages
-package main
+package server
 
 import (
-	"os"
-
-	"github.com/wso2-enterprise/choreo-connect-global-adapter/internal/server"
+	"github.com/wso2-enterprise/choreo-connect-global-adapter/internal/logger"
 )
 
-func main() {
-	startGlobalAdapter(os.Args)
-}
-
-func initServer() error {
-	return nil
-}
-
-func startGlobalAdapter(args []string) {
-	server.Run()
+// Run starts the global adapter server.
+func Run() {
+	logger.LoggerServer.Info("Global Adapter - Implementation in Progress...")
 }
