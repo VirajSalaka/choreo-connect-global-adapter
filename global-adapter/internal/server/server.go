@@ -18,7 +18,7 @@
 package server
 
 import (
-	"github.com/wso2-enterprise/choreo-connect-global-adapter/internal/logger"
+	"github.com/wso2-enterprise/choreo-connect-global-adapter/global-adapter/internal/logger"
 )
 
 // Run starts the global adapter server.
