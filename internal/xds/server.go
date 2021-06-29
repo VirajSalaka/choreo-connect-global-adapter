@@ -30,7 +30,6 @@ import (
 
 var (
 	apiCache wso2_cache.SnapshotCache
-	apiMap   map[string]types.Resource
 )
 
 const (
@@ -90,17 +89,17 @@ func AddAPIsToCache() {
 
 	AddMultipleAPIs(arr)
 	time.Sleep(10 * time.Second)
-	AddSingleAPI("default", "apiID1", "1234")
+	addSingleAPI("default", "apiID1", "1234")
 	time.Sleep(10 * time.Second)
-	AddSingleAPI("default", "apiID2", "1234")
+	addSingleAPI("default", "apiID2", "1234")
 	time.Sleep(5 * time.Second)
-	AddSingleAPI("default", "apiID1", "4567")
+	addSingleAPI("default", "apiID1", "4567")
 	time.Sleep(5 * time.Second)
-	RemoveAPI("default", "apiID1")
+	removeAPI("default", "apiID1")
 }
 
-// AddSingleAPI adds the API entry to XDS cache
-func AddSingleAPI(label, apiUUID, revisionUUID string) {
+// addSingleAPI adds the API entry to XDS cache
+func addSingleAPI(label, apiUUID, revisionUUID string) {
 	//debug
 	fmt.Printf("Deploy API is triggered for %s:%s under revision: %s\n", label, apiUUID, revisionUUID)
 	var newSnapshot wso2_cache.Snapshot
@@ -126,8 +125,8 @@ func AddSingleAPI(label, apiUUID, revisionUUID string) {
 	fmt.Printf("API Snaphsot is updated for label %s with the version %d. \n", label, version)
 }
 
-// RemoveAPI removes the API entry from XDS cache
-func RemoveAPI(label, apiUUID string) {
+// removeAPI removes the API entry from XDS cache
+func removeAPI(label, apiUUID string) {
 	//debug
 	fmt.Printf("Remove API is triggered for %s:%s \n", label, apiUUID)
 	var newSnapshot wso2_cache.Snapshot
@@ -145,6 +144,15 @@ func RemoveAPI(label, apiUUID string) {
 		nil, nil, nil, nil, nil, apiResources)
 	apiCache.SetSnapshot(label, newSnapshot)
 	fmt.Printf("API Snaphsot is updated for label %s with the version %d. \n", label, version)
+}
+
+// ProcessSingleEvent is triggered when there is a single event needs to be processed(Corresponding to JMS Events)
+func ProcessSingleEvent(event *APIInboundEvent) {
+	if event.IsRemoveEvent {
+		removeAPI(event.Label, event.APIUUID)
+	} else {
+		addSingleAPI(event.Label, event.APIUUID, event.RevisionUUID)
+	}
 }
 
 // AddMultipleAPIs adds the multiple APIs entry to XDS cache (used for statup)
