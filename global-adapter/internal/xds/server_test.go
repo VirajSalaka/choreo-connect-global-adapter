@@ -22,7 +22,7 @@ import (
 
 	"github.com/envoyproxy/go-control-plane/pkg/cache/types"
 	"github.com/stretchr/testify/assert"
-	"github.com/wso2-enterprise/choreo-connect-global-adapter/internal/xds"
+	"github.com/wso2-enterprise/choreo-connect-global-adapter/global-adapter/internal/xds"
 	ga_model "github.com/wso2/product-microgateway/adapter/pkg/discovery/api/wso2/discovery/ga"
 )
 

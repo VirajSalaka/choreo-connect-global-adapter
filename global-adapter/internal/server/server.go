@@ -24,7 +24,7 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/wso2-enterprise/choreo-connect-global-adapter/internal/xds"
+	"github.com/wso2-enterprise/choreo-connect-global-adapter/global-adapter/internal/xds"
 	ga_service "github.com/wso2/product-microgateway/adapter/pkg/discovery/api/wso2/discovery/service/ga"
 	wso2_server "github.com/wso2/product-microgateway/adapter/pkg/discovery/protocol/server/v3"
 	"google.golang.org/grpc"
